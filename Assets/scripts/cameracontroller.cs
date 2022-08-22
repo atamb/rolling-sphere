@@ -9,13 +9,20 @@ public class cameracontroller : MonoBehaviour
     public Vector3 offset;
     public Vector3 velocity;
     public float smoothTime = 0.3f;
+    public float rotationPositive = 1;
+    public float rotationNegative = -1;
 
     void Start()
     {
         transform.position = targetObject.transform.position + offset;
     }
 
-    // Update is called once per frame
+    void Update() 
+    {
+        
+    }
+   
+
     void LateUpdate()
     {
         targetedposition = targetObject.transform.position + offset;

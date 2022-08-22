@@ -11,22 +11,59 @@ public class rollingsphere : MonoBehaviour
     public float distance;
     public TextMeshProUGUI score;
     public float speed;
-    public float movementSpeed;
-    private float horizontalInput;
+    Rigidbody rb;
+    private float xInput;
+    private float zInput;
 
+    void Start()
+    {
+        rb=GetComponent<Rigidbody>();
+    }
+    
 
-    // Update is called once per frame
     void Update()
     {
-        horizontalInput = Input.GetAxis("Horizontal");
-        distance = Vector3.Distance(other.position, transform.position);
-        score.text = "" + (int)distance;
+        Movement();
+        GetDistance();
     }
 
-    void FixedUpdate()
+
+    private void Movement()
     {
-        transform.Translate(Vector3.forward * speed * Time.deltaTime, Space.World);
-        transform.position +=new Vector3(horizontalInput * movementSpeed * Time.deltaTime,0, 0);
+        speed = 400;
+        xInput = Input.GetAxis("Horizontal");
+        zInput = Input.GetAxis("Vertical");
+        if(xInput>0.1f)
+        {
+            xInput=0.1f;
+        }
+        if(xInput<-0.1f)
+        {
+            xInput=-0.1f;
+        }
+        if(zInput>0.1f)
+        {
+            zInput=0.1f;
+        }
+        if(zInput<-0.1f)
+        {
+            zInput=-0.1f;
+        }
+        Vector3 velocity = new Vector3(xInput, 0 ,zInput);
+        rb.AddForce(velocity*speed*Time.deltaTime);
+    }
+
+    private void GetDistance()
+    {
+        distance = Vector3.Distance(other.position, transform.position);
+        score.text = "" + (int)distance;
+        if(transform.position.y<-1)
+        {
+            zInput = 0;
+            xInput = 0;
+            transform.position= new Vector3(0,1,0);
+            speed = 0;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -34,12 +71,8 @@ public class rollingsphere : MonoBehaviour
         if (collision.gameObject.tag == "terrain")
         {
             distance = 0;
-            SceneManager.LoadScene(0);
+            transform.position= new Vector3(0,1,0);
         }
 
-        if (collision.gameObject.name == "finisher")
-        {
-            Debug.Log("Kazandiniz!");
-        }
     }
 }
