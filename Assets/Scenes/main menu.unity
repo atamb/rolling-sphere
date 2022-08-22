@@ -265,7 +265,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 440439978}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f4f1f18b160b4a4e8c2de0fd4e01acd, type: 3}
+  m_Script: {fileID: 11500000, guid: a3a9d08a56670c24ba5c8f7ee4e7e154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &440439981
@@ -313,7 +313,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 440439980}
-        m_TargetAssemblyTypeName: buttoncode, Assembly-CSharp
+        m_TargetAssemblyTypeName: codeButton, Assembly-CSharp
         m_MethodName: level1
         m_Mode: 1
         m_Arguments:
