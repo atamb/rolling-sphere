@@ -609,6 +609,8 @@ MonoBehaviour:
   offset: {x: 0, y: 2, z: -3}
   velocity: {x: 0, y: 0, z: 0}
   smoothTime: 0
+  rotationPositive: 1
+  rotationNegative: -1
 --- !u!1001 &1272902406
 PrefabInstance:
   m_ObjectHideFlags: 0
