@@ -14,15 +14,15 @@ public class roadScript : MonoBehaviour
     {
         for(i=0;i<3;i++)
         {
-            nextStep+=67.46f;
+            nextStep+=34.97f;
             var firstRoad = Instantiate(redRoads[Random.Range(0, redRoads.Length)], new Vector3(startPos.position.x, startPos.position.y, transform.position.z + nextStep), Quaternion.identity);
-            firstRoad.transform.rotation= Quaternion.Euler(-90,0,180);
+            firstRoad.transform.rotation= Quaternion.Euler(-90,0,-90);
         }
         for(i=3;i<6;i++)
         {
-            nextStep+=67.46f;
+            nextStep+=34.97f;
             var secondRoad = Instantiate(yellowRoads[Random.Range(0, yellowRoads.Length)], new Vector3(startPos.position.x, startPos.position.y, transform.position.z + nextStep), Quaternion.identity);
-            secondRoad.transform.rotation= Quaternion.Euler(-90,0,180);
+            secondRoad.transform.rotation= Quaternion.Euler(-90,0,-90);
         }
     }
     
