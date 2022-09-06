@@ -20,12 +20,24 @@ public class rollingsphere : MonoBehaviour
     private Vector3 verticalVelocity;
     public float zOffset;
     public float zVelocity;
+    [SerializeField] private GameObject objsphere;
+    [SerializeField] private Texture fstBallText;
+    [SerializeField] private Texture secBallText;
+    [SerializeField] private Texture thrBallText;
+    private Renderer renderSphere;
+    public Material secondSkybox;
+    public Material thirdSkybox;
+    
 
 
     void Start()
     {
+        zOffset=0;
+        verticalSpeed = -100;
+        speed = 120;
         rb=GetComponent<Rigidbody>();
         verticalVelocity *= -1;
+        renderSphere = objsphere.GetComponent<Renderer>();
     }
 
     
@@ -36,6 +48,7 @@ public class rollingsphere : MonoBehaviour
         verticalMovement(); 
         pcMovement();
         GetDistance();
+        SetNewColor();
     }
 
     private void pcMovement()
@@ -46,10 +59,9 @@ public class rollingsphere : MonoBehaviour
     
     private void horizontalMovement()
     {
-
-        speed = 100;
         xInput = Input.acceleration.x; 
-        
+        speed = 120;
+
         if(xInput>1)
         {
             xInput=1;
@@ -57,14 +69,6 @@ public class rollingsphere : MonoBehaviour
         if(xInput<-1)
         {
             xInput=-1;
-        }
-        if(zInput>1)
-        {
-            zInput=1;
-        }
-        if(zInput<-1)
-        {
-            zInput=-1;
         }
 
         velocity = new Vector3(xInput, 0 ,0);
@@ -74,17 +78,36 @@ public class rollingsphere : MonoBehaviour
 
     private void verticalMovement()
     {
-
-        verticalSpeed = -80;
-
         zInput = Input.acceleration.z;
+        verticalSpeed = -100;
+
+        if(zInput>1)
+        {
+            zInput=1;
+        }
+        if(zInput<-1)
+        {
+            zInput=-1;
+        }
         
-        verticalVelocity = new Vector3(0, 0 ,zVelocity);
+        verticalVelocity = new Vector3(0, 0 ,zInput-zOffset);
 
         rb.AddForce(verticalVelocity*verticalSpeed*Time.deltaTime);
     }
 
-
+    private void SetNewColor()
+    {
+        if(transform.position.z>141)
+        {
+            renderSphere.material.SetTexture("_MainTex", secBallText);
+            RenderSettings.skybox = secondSkybox;
+        }
+        if(transform.position.z>245.5f)
+        {
+            renderSphere.material.SetTexture("_MainTex", thrBallText);
+            RenderSettings.skybox = thirdSkybox;
+        }
+    }
 
     private void GetDistance()
     {
@@ -95,6 +118,8 @@ public class rollingsphere : MonoBehaviour
             xInput = 0;
             transform.position= new Vector3(0,1,0);
             speed = 0;
+            renderSphere.material.SetTexture("_MainTex", fstBallText);
+            RenderSettings.skybox = thirdSkybox;
         }
         
         if(distance> PlayerPrefs.GetInt("highScore"))
@@ -105,7 +130,7 @@ public class rollingsphere : MonoBehaviour
 
     public void offsetButton()
     {
-        zVelocity=zInput-zOffset;
+        zOffset=Input.acceleration.z;
     }
 
 

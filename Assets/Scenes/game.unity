@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: a1b6a83ef8e85d74bb69d125841c9952, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 71f14a2d79f732f4d9893ef1b911f4ff, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -611,6 +611,13 @@ MonoBehaviour:
   - {fileID: 8912350648212086401, guid: aadf23644916fbe468ebd06294f20582, type: 3}
   - {fileID: 1275459282755065033, guid: b93472cbba792f342857b77d4740f084, type: 3}
   - {fileID: 8340203388303618418, guid: 0fbaea45118d3554bacd20a36d11bea7, type: 3}
+  blueRoads:
+  - {fileID: 6748437193328911537, guid: c1a73963a1d4d2b49bb9025a9cbb0373, type: 3}
+  - {fileID: 8617882608643858265, guid: ce9c1f70ea65e1c4b9a852e303dc91de, type: 3}
+  - {fileID: 1917088915713867747, guid: 7ccf26f5d1a5b6542a5ef8bd1684b990, type: 3}
+  - {fileID: 247975619019107822, guid: 44ab700300e750241b853105dc5d11ed, type: 3}
+  - {fileID: 5250096812779182322, guid: 157a85e2c06780b45a5818dedd38972d, type: 3}
+  - {fileID: 3013894288374720754, guid: 282bb2c6d5e1b9543b723a4301942bcb, type: 3}
   i: 0
 --- !u!4 &938278082
 Transform:
@@ -631,17 +638,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8055174224066254007, guid: edc1d17aa6c2fcb4ca89400283ab5590, type: 3}
   m_PrefabInstance: {fileID: 8055174224480049518}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &996019675 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8055174224066254005, guid: edc1d17aa6c2fcb4ca89400283ab5590, type: 3}
-  m_PrefabInstance: {fileID: 8055174224480049518}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 996019673}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01c8e581d3f55484ebf5bb52a0b2ac2c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1004173697
 GameObject:
   m_ObjectHideFlags: 0
@@ -1374,6 +1370,12 @@ MonoBehaviour:
   zInput: 0
   zOffset: 0
   zVelocity: 0
+  objsphere: {fileID: 1577328785}
+  fstBallText: {fileID: 2800000, guid: 80a3844b460c7414e81f5dcc649cd103, type: 3}
+  secBallText: {fileID: 2800000, guid: 7f72ce56d77df4648a022205114073c9, type: 3}
+  thrBallText: {fileID: 2800000, guid: 2a60daf970ffff24883c044e09b8d614, type: 3}
+  secondSkybox: {fileID: 2100000, guid: 4067de1a02072244798361060c5e7325, type: 2}
+  thirdSkybox: {fileID: 2100000, guid: a1b6a83ef8e85d74bb69d125841c9952, type: 2}
 --- !u!1 &1623289900
 GameObject:
   m_ObjectHideFlags: 0
@@ -1457,7 +1459,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 996019675}
+      - m_Target: {fileID: 1577328792}
         m_TargetAssemblyTypeName: rollingsphere, Assembly-CSharp
         m_MethodName: offsetButton
         m_Mode: 1
@@ -1872,6 +1874,10 @@ PrefabInstance:
       propertyPath: score
       value: 
       objectReference: {fileID: 220959668}
+    - target: {fileID: 8055174224066254005, guid: edc1d17aa6c2fcb4ca89400283ab5590, type: 3}
+      propertyPath: cubeMap2
+      value: 
+      objectReference: {fileID: 8900000, guid: 656a59a5ff93c46498416d97e5c16b66, type: 3}
     - target: {fileID: 8055174224066254007, guid: edc1d17aa6c2fcb4ca89400283ab5590, type: 3}
       propertyPath: m_Name
       value: sphere
