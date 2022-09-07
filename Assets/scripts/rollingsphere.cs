@@ -81,13 +81,13 @@ public class rollingsphere : MonoBehaviour
         zInput = Input.acceleration.z;
         verticalSpeed = -100;
 
-        if(zInput>1)
+        if(zInput-zOffset>0.5f)
         {
-            zInput=1;
+            zOffset = zInput - 0.5f;
         }
-        if(zInput<-1)
+        if(zInput-zOffset<-0.5f)
         {
-            zInput=-1;
+            zOffset = zInput - 0.5f;
         }
         
         verticalVelocity = new Vector3(0, 0 ,zInput-zOffset);
@@ -97,12 +97,12 @@ public class rollingsphere : MonoBehaviour
 
     private void SetNewColor()
     {
-        if(transform.position.z>141)
+        if(transform.position.z>373)
         {
             renderSphere.material.SetTexture("_MainTex", secBallText);
             RenderSettings.skybox = secondSkybox;
         }
-        if(transform.position.z>245.5f)
+        if(transform.position.z>710)
         {
             renderSphere.material.SetTexture("_MainTex", thrBallText);
             RenderSettings.skybox = thirdSkybox;
