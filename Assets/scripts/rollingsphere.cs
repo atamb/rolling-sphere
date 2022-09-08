@@ -81,14 +81,7 @@ public class rollingsphere : MonoBehaviour
         zInput = Input.acceleration.z;
         verticalSpeed = -100;
 
-        if(zInput-zOffset>0.5f)
-        {
-            zOffset = zInput - 0.5f;
-        }
-        if(zInput-zOffset<-0.5f)
-        {
-            zOffset = zInput - 0.5f;
-        }
+        
         
         verticalVelocity = new Vector3(0, 0 ,zInput-zOffset);
 

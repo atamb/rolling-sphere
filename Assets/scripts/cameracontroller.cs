@@ -4,18 +4,14 @@ using UnityEngine;
 
 public class cameracontroller : MonoBehaviour
 {
-[SerializeField] private Vector3 offset;
-[SerializeField] private GameObject target;
+[SerializeField] private float movement;
+
 
 private void Update() 
 {
- Translation(); 
+    movement = Input.acceleration.x;
+    transform.rotation = Quaternion.Euler(transform.rotation.x-(movement*10),transform.rotation.x,transform.rotation.x);
 }
 
-private void Translation()
-{
-    transform.position=target.transform.position + offset;
-    transform.LookAt(target.transform.position);
-}
 
 }
