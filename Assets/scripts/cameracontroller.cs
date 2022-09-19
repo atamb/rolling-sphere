@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class cameracontroller : MonoBehaviour
 {
-[SerializeField] private float movement;
 
+[SerializeField] private float movement;
 
 private void Update() 
 {

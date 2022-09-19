@@ -16,6 +16,7 @@ public class rollingsphere : MonoBehaviour
     Rigidbody rb;
     private float xInput;
     public float zInput;
+    private float zPosition;
     private Vector3 velocity;
     private Vector3 verticalVelocity;
     public float zOffset;
@@ -24,23 +25,29 @@ public class rollingsphere : MonoBehaviour
     [SerializeField] private Texture fstBallText;
     [SerializeField] private Texture secBallText;
     [SerializeField] private Texture thrBallText;
+    [SerializeField] private Texture frtBallText;
+    [SerializeField] private Texture fthBallText;
+    [SerializeField] private Texture sxtBallText;
+    [SerializeField] private Texture svtBallText;
+    [SerializeField] private Texture egtBallText;
     private Renderer renderSphere;
     public Material secondSkybox;
     public Material thirdSkybox;
+    [SerializeField] private ParticleSystem finishingparticle;
+
     
 
 
     void Start()
     {
         zOffset=0;
+        zPosition = 0;
         verticalSpeed = -100;
         speed = 120;
         rb=GetComponent<Rigidbody>();
         verticalVelocity *= -1;
         renderSphere = objsphere.GetComponent<Renderer>();
     }
-
-    
 
     void Update()
     {
@@ -75,14 +82,20 @@ public class rollingsphere : MonoBehaviour
 
         rb.AddForce(velocity*speed*Time.deltaTime);
     }
-
+    
+    private void OnCollisionEnter(Collision other) {
+        if(other.gameObject.name=="tree")
+        {
+            finishingparticle.Play();
+            Invoke("Finished",1f);
+        }
+    }
+    
     private void verticalMovement()
     {
         zInput = Input.acceleration.z;
         verticalSpeed = -100;
-
-        
-        
+       
         verticalVelocity = new Vector3(0, 0 ,zInput-zOffset);
 
         rb.AddForce(verticalVelocity*verticalSpeed*Time.deltaTime);
@@ -90,15 +103,53 @@ public class rollingsphere : MonoBehaviour
 
     private void SetNewColor()
     {
-        if(transform.position.z>373)
+        if(transform.position.z<373)
+        {
+            renderSphere.material.SetTexture("_MainTex", fstBallText);
+            RenderSettings.skybox = thirdSkybox;
+            zPosition=0;
+        }
+        else if(transform.position.z>373 && transform.position.z<710)
         {
             renderSphere.material.SetTexture("_MainTex", secBallText);
             RenderSettings.skybox = secondSkybox;
+            zPosition=373;
         }
-        if(transform.position.z>710)
+        else if(transform.position.z>710 && transform.position.z<1048)
         {
             renderSphere.material.SetTexture("_MainTex", thrBallText);
             RenderSettings.skybox = thirdSkybox;
+            zPosition=710;
+        }
+        else if(transform.position.z>1048 && transform.position.z<1384)
+        {
+            renderSphere.material.SetTexture("_MainTex", frtBallText);
+            RenderSettings.skybox = secondSkybox;
+            zPosition=1048;
+        }
+        else if(transform.position.z>1384 && transform.position.z<1721)
+        {
+            renderSphere.material.SetTexture("_MainTex", fthBallText);
+            RenderSettings.skybox = thirdSkybox;
+            zPosition=1384;
+        }
+        else if(transform.position.z>1721 && transform.position.z<2058)
+        {
+            renderSphere.material.SetTexture("_MainTex", sxtBallText);
+            RenderSettings.skybox = secondSkybox;
+            zPosition=1721;
+        }
+        else if(transform.position.z>2058 && transform.position.z<2395)
+        {
+            renderSphere.material.SetTexture("_MainTex", svtBallText);
+            RenderSettings.skybox = thirdSkybox;
+            zPosition=2058;
+        }
+        else if(transform.position.z>2395)
+        {
+            renderSphere.material.SetTexture("_MainTex", egtBallText);
+            RenderSettings.skybox = secondSkybox;
+            zPosition=2395;
         }
     }
 
@@ -109,7 +160,7 @@ public class rollingsphere : MonoBehaviour
         if(transform.position.y<-1)
         {
             xInput = 0;
-            transform.position= new Vector3(0,1,0);
+            transform.position= new Vector3(0,1,zPosition);
             speed = 0;
             renderSphere.material.SetTexture("_MainTex", fstBallText);
             RenderSettings.skybox = thirdSkybox;
@@ -124,6 +175,11 @@ public class rollingsphere : MonoBehaviour
     public void offsetButton()
     {
         zOffset=Input.acceleration.z;
+    }
+
+    private void Finished()
+    {
+       SceneManager.LoadScene(2);
     }
 
 
