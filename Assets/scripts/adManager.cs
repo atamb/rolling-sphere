@@ -45,12 +45,12 @@ public class adManager : MonoBehaviour
     void RequestInterstitial()
     {
 #if UNITY_ANDROID
-        string adID = "ca-app-pub-8468017109720936/7351015715";
+        string adID2 = "ca-app-pub-8468017109720936/7351015715";
 #else
-     string adID = "unexpected platform";
+     string adID2 = "unexpected platform";
 #endif
 
-        this.interstitial = new InterstitialAd(adID);
+        this.interstitial = new InterstitialAd(adID2);
         AdRequest request = new AdRequest.Builder().Build();
         this.interstitial.LoadAd(request);
     }
