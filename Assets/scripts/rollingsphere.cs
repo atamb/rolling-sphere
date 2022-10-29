@@ -22,7 +22,6 @@ public class rollingsphere : MonoBehaviour
 
     [SerializeField] private float highScore;
     private Vector3 velocity;
-    private Vector3 verticalVelocity;
     public float zOffset;
     public float zVelocity;
     [SerializeField] private GameObject objsphere;
@@ -46,10 +45,7 @@ public class rollingsphere : MonoBehaviour
     {
         gm=GameObject.Find("gameManager").GetComponent<gameManager>();
         zOffset=0;
-        verticalSpeed = -100;
-        speed = 120;
         rb=GetComponent<Rigidbody>();
-        verticalVelocity *= -1;
         renderSphere = objsphere.GetComponent<Renderer>();
         levels=PlayerPrefs.GetInt("levelWanted");
         levelController();
@@ -57,40 +53,28 @@ public class rollingsphere : MonoBehaviour
     }
 
     void Update()
-    {
-        horizontalMovement();
-        verticalMovement(); 
-        pcMovement();
+    { 
         GetDistance();
         SetNewColor();
         OpenBalls();
+        horizontalMovement();
     }
 
-    private void pcMovement()
+     void FixedUpdate() 
     {
-        Vector3 hiz = new Vector3(Input.GetAxis("Horizontal"),0f,Input.GetAxis("Vertical"));
-        rb.AddForce(hiz*speed*Time.deltaTime);
+
     }
     
     private void horizontalMovement()
     {
         xInput = Input.acceleration.x; 
-        speed = 120;
+        zInput = -Input.acceleration.z;
+        speed = 100;
 
-        if(xInput>1)
-        {
-            xInput=1;
-        }
-        if(xInput<-1)
-        {
-            xInput=-1;
-        }
-
-        velocity = new Vector3(xInput, 0 ,0);
+        velocity = new Vector3(xInput, 0 ,zInput);
 
         rb.AddForce(velocity*speed*Time.deltaTime);
     }
-    
     private void OnCollisionEnter(Collision other) {
         if(other.gameObject.name=="tree")
         {
@@ -99,15 +83,6 @@ public class rollingsphere : MonoBehaviour
         }
     }
     
-    private void verticalMovement()
-    {
-        zInput = Input.acceleration.z;
-        verticalSpeed = -100;
-       
-        verticalVelocity = new Vector3(0, 0 ,zInput-zOffset);
-
-        rb.AddForce(verticalVelocity*verticalSpeed*Time.deltaTime);
-    }
 
     private void levelController()
     {
@@ -207,9 +182,7 @@ public class rollingsphere : MonoBehaviour
         score.text = "" + (int)distance/2;
         if(transform.position.y<-1)
         {
-            xInput = 0;
             transform.position= new Vector3(0,1,zPosition);
-            speed = 0;
             gm.count+=1;
             renderSphere.material.SetTexture("_MainTex", fstBallText);
             RenderSettings.skybox = thirdSkybox;
